@@ -1,0 +1,49 @@
+name: BuildPulse
+description: |
+  Send test results to BuildPulse (https://buildpulse.io) to help you identify
+  and eliminate flaky tests
+author: Jason Rudolph
+inputs:
+  account:
+    description: |
+      BuildPulse's unique numeric identifier for the account that owns the
+      repository.
+    required: true
+  repository:
+    description: |
+      BuildPulse's unique numeric identifier for the repository.
+    required: true
+  path:
+    description: |
+      Relative path to the directory that contains the XML files for the test
+      results (e.g., "test/reports").
+    required: true
+  key:
+    description: |
+      BuildPulse access key ID for the account that owns the repository.
+
+      In the GitHub settings for your repository, create an encrypted secret
+      named BUILDPULSE_ACCESS_KEY_ID and set its value to the BuildPulse access
+      key ID for your account. For help creating encrypted secrets, please see
+      the GitHub docs at https://git.io/JvX7H.
+
+      Then, use the encrypted secret as the value for the 'key' input in your
+      workflow. For help using a secret in a workflow, please see the GitHub
+      docs at https://git.io/JvX77.
+    required: true
+  secret:
+    description: |
+      BuildPulse secret access key for the account that owns the repository.
+
+      In the GitHub settings for your repository, create an encrypted secret
+      named BUILDPULSE_SECRET_ACCESS_KEY and set its value to the BuildPulse
+      secret access key for your account. For help creating encrypted secrets,
+      please see the GitHub docs at https://git.io/JvX7H.
+
+      Then, use the encrypted secret as the value for the 'secret' input in your
+      workflow. For help using a secret in a workflow, please see the GitHub
+      docs at https://git.io/JvX77.
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
