@@ -1,7 +1,7 @@
 name: BuildPulse
 description: |
-  Send test results to BuildPulse (https://buildpulse.io) to help you identify
-  and eliminate flaky tests
+  Send test results to buildpulse.io to help you identify and eliminate flaky
+  tests
 author: Jason Rudolph
 branding:
   icon: 'activity'
