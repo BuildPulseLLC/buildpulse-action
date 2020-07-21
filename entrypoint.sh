@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/sh -el
 
 set -e
 
@@ -26,31 +26,10 @@ then
 fi
 REPORT_PATH="${INPUT_PATH}"
 
-METADATA_PATH=${REPORT_PATH}/buildpulse.yml
-TIMESTAMP=$(date -Iseconds)
-UUID=$(cat /proc/sys/kernel/random/uuid)
-cat << EOF > "$METADATA_PATH"
----
-:build_url: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-:check: ${INPUT_CHECK:-github-actions}
-:ci-provider: github-actions
-:commit: $GITHUB_SHA
-:github_actions_actor: $GITHUB_ACTOR
-:github_actions_base_ref: $GITHUB_BASE_REF
-:github_actions_head_ref: $GITHUB_HEAD_REF
-:github_actions_run_id: $GITHUB_RUN_ID
-:github_actions_run_number: $GITHUB_RUN_NUMBER
-:github_actions_workflow: $GITHUB_WORKFLOW
-:ref: $GITHUB_REF
-:repo_name_with_owner: $GITHUB_REPOSITORY
-:timestamp: '$TIMESTAMP'
-EOF
+wget --quiet https://github.com/buildpulse/test-reporter/releases/latest/download/test-reporter-linux-amd64 --output-document ./buildpulse-test-reporter
 
-ARCHIVE_PATH=/tmp/buildpulse-${UUID}.gz
-tar -zcf "${ARCHIVE_PATH}" "${REPORT_PATH}"
-S3_URL=s3://$ACCOUNT_ID.buildpulse-uploads/$REPOSITORY_ID/
+chmod +x ./buildpulse-test-reporter
 
-AWS_ACCESS_KEY_ID="${INPUT_KEY}" \
-  AWS_SECRET_ACCESS_KEY="${INPUT_SECRET}" \
-  AWS_DEFAULT_REGION=us-east-2 \
-  aws s3 cp "${ARCHIVE_PATH}" "${S3_URL}"
+BUILDPULSE_ACCESS_KEY_ID="${INPUT_KEY}" \
+  BUILDPULSE_SECRET_ACCESS_KEY="${INPUT_SECRET}" \
+  ./buildpulse-test-reporter submit "${REPORT_PATH}" --account-id $ACCOUNT_ID --repository-id $REPOSITORY_ID

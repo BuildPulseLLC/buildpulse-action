@@ -49,4 +49,4 @@ inputs:
     required: true
 runs:
   using: docker
-  image: docker://workshop64/buildpulse-github-action-runner:latest
+  image: Dockerfile

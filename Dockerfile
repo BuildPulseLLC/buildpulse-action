@@ -1,8 +1,4 @@
-FROM python:3-alpine
-
-RUN pip install --quiet awscli
-
-RUN aws --version
+FROM alpine:3.12
 
 COPY entrypoint.sh /entrypoint.sh
 
