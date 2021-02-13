@@ -50,5 +50,9 @@ Easily connect your GitHub Actions CI workflows to [BuildPulse][buildpulse.io] t
 
 **Required** The `BUILDPULSE_SECRET_ACCESS_KEY` for the account that owns the repository.
 
+### `repository-path`
+
+_Optional_ The path to the local git clone of the repository (default: ".").
+
 
 [buildpulse.io]: https://buildpulse.io

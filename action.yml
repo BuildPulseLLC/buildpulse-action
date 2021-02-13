@@ -47,6 +47,13 @@ inputs:
       workflow. For help using a secret in a workflow, please see the GitHub
       docs at https://git.io/JvX77.
     required: true
+  repository-path:
+    description: |
+      Path to the local git clone of the repository (default: ".").
+    default: '.'
+    required: false
 runs:
   using: docker
   image: Dockerfile
+  env:
+    INPUT_REPOSITORY_PATH: ${{ inputs.repository-path }} # Translate kebab-case input to snake_case env var

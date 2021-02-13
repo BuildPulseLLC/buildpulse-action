@@ -26,10 +26,18 @@ then
 fi
 REPORT_PATH="${INPUT_PATH}"
 
+if [ ! -d "$INPUT_REPOSITORY_PATH" ]
+then
+  echo "🐛 The given path is not a directory: ${INPUT_REPOSITORY_PATH}"
+  echo "🧰 To resolve this issue, set the 'repository-path' parameter to the directory that contains the local git clone of your repository."
+  exit 1
+fi
+REPOSITORY_PATH="${INPUT_REPOSITORY_PATH}"
+
 wget --quiet https://github.com/buildpulse/test-reporter/releases/latest/download/test-reporter-linux-amd64 --output-document ./buildpulse-test-reporter
 
 chmod +x ./buildpulse-test-reporter
 
 BUILDPULSE_ACCESS_KEY_ID="${INPUT_KEY}" \
   BUILDPULSE_SECRET_ACCESS_KEY="${INPUT_SECRET}" \
-  ./buildpulse-test-reporter submit "${REPORT_PATH}" --account-id $ACCOUNT_ID --repository-id $REPOSITORY_ID
+  ./buildpulse-test-reporter submit "${REPORT_PATH}" --account-id $ACCOUNT_ID --repository-id $REPOSITORY_ID --repository-dir "${REPOSITORY_PATH}"
