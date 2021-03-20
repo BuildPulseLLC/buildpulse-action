@@ -1,4 +1,4 @@
-# GitHub Action for BuildPulse [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Workshop64/buildpulse-circleci-orb/master/LICENSE)
+# GitHub Action for BuildPulse [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Workshop64/buildpulse-action/main/LICENSE)
 
 Easily connect your GitHub Actions CI workflows to [BuildPulse][buildpulse.io] to help you identify and eliminate flaky tests.
 
