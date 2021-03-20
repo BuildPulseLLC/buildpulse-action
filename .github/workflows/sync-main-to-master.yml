@@ -1,0 +1,17 @@
+name: Sync main to master
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * 0' # On the off chance that this job doesn't get triggered on a push to main, sync main to master every Sunday
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - run: git push -f origin main:master
