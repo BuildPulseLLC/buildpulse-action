@@ -19,7 +19,7 @@ Easily connect your GitHub Actions CI workflows to [BuildPulse][buildpulse.io] t
 
     - name: Upload test results to BuildPulse for flaky test detection
       if: '!cancelled()' # Run this step even when the tests fail. Skip if the workflow is cancelled.
-      uses: Workshop64/buildpulse-action@master
+      uses: Workshop64/buildpulse-action@main
       with:
         account: <buildpulse-account-id>
         repository: <buildpulse-repository-id>
