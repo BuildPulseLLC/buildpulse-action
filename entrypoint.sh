@@ -34,6 +34,15 @@ then
 fi
 REPOSITORY_PATH="${INPUT_REPOSITORY_PATH}"
 
+if test -z "$INPUT_KEY" && test -z "$INPUT_SECRET" && test "$GITHUB_ACTOR" = "dependabot[bot]"
+then
+  echo "::warning ::No value available for the 'key' parameter or the 'secret' parameter. Skipping upload to BuildPulse."
+  echo "⚠️ ⚠️ ⚠️ As of March 1, 2021, Dependabot PRs cannot access secrets in GitHub Actions. See details on the GitHub blog at https://git.io/Jm5au"
+  echo "⚠️ ⚠️ ⚠️ Secrets are necessary in order to authenticate with external services like BuildPulse."
+  echo "⚠️ ⚠️ ⚠️ Since secrets aren't available in this build, the build cannot authenticate with BuildPulse to upload test results."
+  exit 0
+fi
+
 wget --quiet https://github.com/buildpulse/test-reporter/releases/latest/download/test-reporter-linux-amd64 --output-document ./buildpulse-test-reporter
 
 chmod +x ./buildpulse-test-reporter
