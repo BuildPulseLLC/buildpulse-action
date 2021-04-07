@@ -56,4 +56,5 @@ runs:
   using: docker
   image: Dockerfile
   env:
+    INPUT_CLI_URL: ${{ inputs.cli-url }} # Translate kebab-case input to snake_case env var
     INPUT_REPOSITORY_PATH: ${{ inputs.repository-path }} # Translate kebab-case input to snake_case env var

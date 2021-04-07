@@ -43,7 +43,9 @@ then
   exit 0
 fi
 
-wget --quiet https://github.com/buildpulse/test-reporter/releases/latest/download/test-reporter-linux-amd64 --output-document ./buildpulse-test-reporter
+CLI_URL="${INPUT_CLI_URL:-https://github.com/buildpulse/test-reporter/releases/latest/download/test-reporter-linux-amd64}"
+
+wget --quiet "${CLI_URL}" --output-document ./buildpulse-test-reporter
 
 chmod +x ./buildpulse-test-reporter
 
