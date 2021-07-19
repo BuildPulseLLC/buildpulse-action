@@ -18,12 +18,14 @@ then
 fi
 REPOSITORY_ID=$INPUT_REPOSITORY
 
-if [ ! -d "$INPUT_PATH" ]
-then
-  echo "🐛 The given path is not a directory: ${INPUT_PATH}"
-  echo "🧰 To resolve this issue, set the 'path' parameter to the directory that contains your test report(s)."
-  exit 1
-fi
+for path in $INPUT_PATH; do
+  if [ ! -e "$path" ]
+  then
+    echo "🐛 The given path does not exist: $path"
+    echo "🧰 To resolve this issue, set the 'path' parameter to the location of your XML test report(s)."
+    exit 1
+  fi
+done
 REPORT_PATH="${INPUT_PATH}"
 
 if [ ! -d "$INPUT_REPOSITORY_PATH" ]
@@ -51,4 +53,4 @@ chmod +x ./buildpulse-test-reporter
 
 BUILDPULSE_ACCESS_KEY_ID="${INPUT_KEY}" \
   BUILDPULSE_SECRET_ACCESS_KEY="${INPUT_SECRET}" \
-  ./buildpulse-test-reporter submit "${REPORT_PATH}" --account-id $ACCOUNT_ID --repository-id $REPOSITORY_ID --repository-dir "${REPOSITORY_PATH}"
+  ./buildpulse-test-reporter submit $REPORT_PATH --account-id $ACCOUNT_ID --repository-id $REPOSITORY_ID --repository-dir "${REPOSITORY_PATH}"

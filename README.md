@@ -23,7 +23,7 @@ Easily connect your GitHub Actions CI workflows to [BuildPulse][buildpulse.io] t
       with:
         account: <buildpulse-account-id>
         repository: <buildpulse-repository-id>
-        path: <path-to-directory-containing-xml-reports>
+        path: <path-to-xml-reports>
         key: ${{ secrets.BUILDPULSE_ACCESS_KEY_ID }}
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
     ```
@@ -40,7 +40,7 @@ Easily connect your GitHub Actions CI workflows to [BuildPulse][buildpulse.io] t
 
 ### `path`
 
-**Required** The relative path to the directory that contains the XML files for the test results (e.g., "test/reports").
+**Required** The path to the XML file(s) for the test results. Can be a directory (e.g., `test/reports`), a single file (e.g., `reports/junit.xml`), or a glob (e.g., `app/*/results/*.xml`).
 
 ### `key`
 
