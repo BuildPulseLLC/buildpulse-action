@@ -45,7 +45,7 @@ then
   exit 0
 fi
 
-CLI_URL="${INPUT_CLI_URL:-https://github.com/buildpulse/test-reporter/releases/latest/download/test_reporter_linux_amd64}"
+CLI_URL="${INPUT_CLI_URL:-https://get.buildpulse.io/test-reporter-linux-amd64}"
 
 wget --quiet "${CLI_URL}" --output-document ./buildpulse-test-reporter
 
