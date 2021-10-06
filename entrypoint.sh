@@ -47,7 +47,7 @@ fi
 
 CLI_URL="${INPUT_CLI_URL:-https://get.buildpulse.io/test-reporter-linux-amd64}"
 
-wget --quiet "${CLI_URL}" --output-document ./buildpulse-test-reporter
+curl -fsSL --retry 3 --retry-connrefused "${CLI_URL}" > ./buildpulse-test-reporter
 
 chmod +x ./buildpulse-test-reporter
 
