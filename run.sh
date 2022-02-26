@@ -1,6 +1,6 @@
-#!/bin/sh -el
+#!/bin/bash
 
-set -e
+set -ex
 
 if ! echo $INPUT_ACCOUNT | egrep -q '^[0-9]+$'
 then
@@ -45,7 +45,22 @@ then
   exit 0
 fi
 
-CLI_URL="${INPUT_CLI_URL:-https://get.buildpulse.io/test-reporter-linux-amd64}"
+case "$RUNNER_OS" in
+  Linux)
+    BUILDPULSE_TEST_REPORTER_BINARY=test-reporter-linux-amd64
+    ;;
+  macOS)
+    BUILDPULSE_TEST_REPORTER_BINARY=test-reporter-darwin-amd64
+    ;;
+  Windows)
+    BUILDPULSE_TEST_REPORTER_BINARY=test-reporter-windows-amd64.exe
+    ;;
+  *)
+    echo "::error::Unrecognized operating system. Expected RUNNER_OS to be one of \"Linux\", \"macOS\", or \"Windows\", but it was \"$RUNNER_OS\"."
+    exit 1
+esac
+
+CLI_URL="${INPUT_CLI_URL:-https://get.buildpulse.io/$BUILDPULSE_TEST_REPORTER_BINARY}"
 
 curl -fsSL --retry 3 --retry-connrefused "${CLI_URL}" > ./buildpulse-test-reporter
 
