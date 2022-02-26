@@ -4,8 +4,8 @@ description: |
   tests
 author: Jason Rudolph
 branding:
-  icon: 'activity'
-  color: 'gray-dark'
+  icon: "activity"
+  color: "gray-dark"
 inputs:
   account:
     description: |
@@ -52,7 +52,7 @@ inputs:
   repository-path:
     description: |
       Path to the local git clone of the repository (default: ".").
-    default: '.'
+    default: "."
     required: false
 runs:
   using: docker
