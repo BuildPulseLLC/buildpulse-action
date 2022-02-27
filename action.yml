@@ -55,8 +55,15 @@ inputs:
     default: "."
     required: false
 runs:
-  using: docker
-  image: Dockerfile
-  env:
-    INPUT_CLI_URL: ${{ inputs.cli-url }} # Translate kebab-case input to snake_case env var
-    INPUT_REPOSITORY_PATH: ${{ inputs.repository-path }} # Translate kebab-case input to snake_case env var
+  using: composite
+  steps:
+    - run: $GITHUB_ACTION_PATH/run.sh
+      shell: bash
+      env:
+        INPUT_ACCOUNT: ${{ inputs.account }}
+        INPUT_REPOSITORY: ${{ inputs.repository }}
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_KEY: ${{ inputs.key }}
+        INPUT_SECRET: ${{ inputs.secret }}
+        INPUT_CLI_URL: ${{ inputs.cli-url }} # Translate kebab-case input to snake_case env var
+        INPUT_REPOSITORY_PATH: ${{ inputs.repository-path }} # Translate kebab-case input to snake_case env var

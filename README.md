@@ -28,8 +28,6 @@ Easily connect your GitHub Actions CI workflows to [BuildPulse][buildpulse.io] t
         secret: ${{ secrets.BUILDPULSE_SECRET_ACCESS_KEY }}
     ```
 
-     🍎🪟 Need to run jobs on macOS or Windows? Use our [macOS upload step][] or [Windows upload step][] instead.
-
 ## Inputs
 
 ### `account`
@@ -58,5 +56,3 @@ _Optional_ The path to the local git clone of the repository (default: ".").
 
 
 [buildpulse.io]: https://buildpulse.io
-[macos upload step]: https://github.com/buildpulse/test-reporter/blob/4ef5020279a9857708b9e2538e6df99a16185947/.github/workflows/demo.yml#L55-L63
-[windows upload step]: https://github.com/buildpulse/test-reporter/blob/4ef5020279a9857708b9e2538e6df99a16185947/.github/workflows/demo.yml#L82-L89
