@@ -70,7 +70,7 @@ getcli() {
 	local rval=-1
 	for host in "${BUILDPULSE_TEST_REPORTER_HOSTS[@]}"; do
 		url="${host}/${BUILDPULSE_TEST_REPORTER_BINARY}"
-		if (set -x; curl -fsSL --retry 3 --retry-connrefused "$url" > "$1"); then
+		if (set -x; curl -fsSL --retry 3 --retry-connrefused --connect-timeout 5 "$url" > "$1"); then
 			return 0
 		else
 			rval=$?
