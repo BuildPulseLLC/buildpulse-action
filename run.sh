@@ -92,7 +92,7 @@ else
 		trouble downloading the BuildPulse test-reporter, we're skipping the
 		BuildPulse analysis for this build.
 
-		If you continue seeing this problem, please get in get in touch at
+		If you continue seeing this problem, please get in touch at
 		https://buildpulse.io/contact so we can look into this issue.
 	eos
 	)
