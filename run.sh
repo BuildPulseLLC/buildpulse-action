@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 if ! echo $INPUT_ACCOUNT | egrep -q '^[0-9]+$'
 then
@@ -60,11 +60,50 @@ case "$RUNNER_OS" in
 		exit 1
 esac
 
-CLI_URL="${INPUT_CLI_URL:-https://get.buildpulse.io/$BUILDPULSE_TEST_REPORTER_BINARY}"
+BUILDPULSE_TEST_REPORTER_HOSTS=(
+	https://get.buildpulse.io
+	https://github.com/buildpulse/test-reporter/releases/latest/download
+)
+[ -n "${INPUT_CLI_HOST}" ] && BUILDPULSE_TEST_REPORTER_HOSTS=("${INPUT_CLI_HOST}" "${BUILDPULSE_TEST_REPORTER_HOSTS[@]}")
 
-curl -fsSL --retry 3 --retry-connrefused "${CLI_URL}" > ./buildpulse-test-reporter
+getcli() {
+	local rval=-1
+	for host in "${BUILDPULSE_TEST_REPORTER_HOSTS[@]}"; do
+		url="${host}/${BUILDPULSE_TEST_REPORTER_BINARY}"
+		if (set -x; curl -fsSL --retry 3 --retry-connrefused "$url" > "$1"); then
+			return 0
+		else
+			rval=$?
+		fi
+	done;
+
+	return $rval
+}
+
+if getcli ./buildpulse-test-reporter; then
+	: # Successfully fetched binary. Great!
+else
+	msg=$(cat <<-eos
+		::warning::Unable to send test results to BuildPulse. See details below.
+
+		Downloading the BuildPulse test-reporter failed with status $?.
+
+		We never want BuildPulse to make your builds unstable. Since we're having
+		trouble downloading the BuildPulse test-reporter, we're skipping the
+		BuildPulse analysis for this build.
+
+		If you continue seeing this problem, please get in get in touch at
+		https://buildpulse.io/contact so we can look into this issue.
+	eos
+	)
+
+	echo "${msg//$'\n'/%0A}" # Replace newlines with URL-encoded newlines for proper formatting in GitHub Actions annotations (https://github.com/actions/toolkit/issues/193#issuecomment-605394935)
+	exit 0
+fi
 
 chmod +x ./buildpulse-test-reporter
+
+set -x
 
 BUILDPULSE_ACCESS_KEY_ID="${INPUT_KEY}" \
 	BUILDPULSE_SECRET_ACCESS_KEY="${INPUT_SECRET}" \
