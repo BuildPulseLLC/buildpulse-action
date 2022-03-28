@@ -23,7 +23,7 @@ jobs:
 
       - name: Upload test results to BuildPulse for flaky test detection
         if: "!cancelled()" # Run this step even when the tests fail. Skip if the workflow is cancelled.
-        uses: Workshop64/buildpulse-action@main
+        uses: Workshop64/buildpulse-action@v0.7.0
         with:
           account: 46661156 # Replace this value with your BuildPulse account ID
           repository: 248253967 # Replace this value with your BuildPulse repository ID
