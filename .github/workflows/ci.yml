@@ -9,6 +9,12 @@ jobs:
       image: ubuntu:latest
 
     steps:
+      # https://github.com/actions/checkout/issues/335#issuecomment-827900176
+      - name: Obtain latest Git ONLY within container for checkout
+        run: |
+          apt-get update
+          apt-get install -y git
+
       - name: Check out code
         uses: actions/checkout@v2
 
