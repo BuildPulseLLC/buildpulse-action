@@ -71,6 +71,7 @@ runs:
   steps:
     - run: $GITHUB_ACTION_PATH/run.sh
       shell: bash
+      continue-on-error: true
       env:
         INPUT_ACCOUNT: ${{ inputs.account }}
         INPUT_REPOSITORY: ${{ inputs.repository }}
