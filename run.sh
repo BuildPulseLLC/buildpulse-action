@@ -36,6 +36,8 @@ then
 fi
 REPOSITORY_PATH="${INPUT_REPOSITORY_PATH}"
 
+COMMIT_SHA="${INPUT_COMMIT:-$GITHUB_SHA}"
+
 if test -z "$INPUT_KEY" && test -z "$INPUT_SECRET" && test "$GITHUB_ACTOR" = "dependabot[bot]"
 then
 	echo "::warning ::No value available for the 'key' parameter or the 'secret' parameter. Skipping upload to BuildPulse."
@@ -107,4 +109,5 @@ set -x
 
 BUILDPULSE_ACCESS_KEY_ID="${INPUT_KEY}" \
 	BUILDPULSE_SECRET_ACCESS_KEY="${INPUT_SECRET}" \
+	GITHUB_SHA="${COMMIT_SHA}" \
 	./buildpulse-test-reporter submit $REPORT_PATH --account-id $ACCOUNT_ID --repository-id $REPOSITORY_ID --repository-dir "${REPOSITORY_PATH}"

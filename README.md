@@ -50,6 +50,12 @@ Easily connect your GitHub Actions CI workflows to [BuildPulse][buildpulse.io] t
 
 **Required** The `BUILDPULSE_SECRET_ACCESS_KEY` for the account that owns the repository.
 
+### `commit`
+
+_Optional_ The SHA for the commit that produced the test results (default: the value of [`${{ github.sha }}`](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context), which is the commit that triggered the workflow).
+
+If your workflow checks out a _different_ commit than the commit that triggered the workflow, then use this input to specify the commit SHA that your workflow checked out. For example, if your workflow is triggered by the [`pull_request` event](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request), but you [customize the workflow to check out the pull request HEAD commit](https://github.com/actions/checkout/tree/v3.0.2#checkout-pull-request-head-commit-instead-of-merge-commit), then you'll want to set this input to the pull request HEAD commit SHA.
+
 ### `repository-path`
 
 _Optional_ The path to the local git clone of the repository (default: ".").

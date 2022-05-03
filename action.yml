@@ -54,6 +54,18 @@ inputs:
       Path to the local git clone of the repository (default: ".").
     default: "."
     required: false
+  commit:
+    description: |
+      Commit SHA for the commit that produced the test results.
+
+      If your workflow checks out a *different* commit than the commit that
+      triggered the workflow, then use this input to specify the commit SHA that
+      your workflow checked out. For example, if your workflow is triggered by
+      the `pull_request` event, but you customize the workflow to check out the
+      pull request HEAD commit as described in https://bit.ly/37aEvcn, then
+      you'll want to set this input to the pull request HEAD commit SHA.
+    default: "${{ github.sha }}"
+    required: false
 runs:
   using: composite
   steps:
@@ -67,3 +79,4 @@ runs:
         INPUT_SECRET: ${{ inputs.secret }}
         INPUT_CLI_URL: ${{ inputs.cli-url }} # Translate kebab-case input to snake_case env var
         INPUT_REPOSITORY_PATH: ${{ inputs.repository-path }} # Translate kebab-case input to snake_case env var
+        INPUT_COMMIT: ${{ inputs.commit }}
