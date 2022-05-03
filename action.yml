@@ -30,11 +30,11 @@ inputs:
       In the GitHub settings for your repository, create an encrypted secret
       named BUILDPULSE_ACCESS_KEY_ID and set its value to the BuildPulse access
       key ID for your account. For help creating encrypted secrets, please see
-      the GitHub docs at https://git.io/JvX7H.
+      the GitHub docs at https://bit.ly/3Fjl4e7.
 
       Then, use the encrypted secret as the value for the 'key' input in your
       workflow. For help using a secret in a workflow, please see the GitHub
-      docs at https://git.io/JvX77.
+      docs at https://bit.ly/3LICKlE.
     required: true
   secret:
     description: |
@@ -43,11 +43,11 @@ inputs:
       In the GitHub settings for your repository, create an encrypted secret
       named BUILDPULSE_SECRET_ACCESS_KEY and set its value to the BuildPulse
       secret access key for your account. For help creating encrypted secrets,
-      please see the GitHub docs at https://git.io/JvX7H.
+      please see the GitHub docs at https://bit.ly/3Fjl4e7.
 
       Then, use the encrypted secret as the value for the 'secret' input in your
       workflow. For help using a secret in a workflow, please see the GitHub
-      docs at https://git.io/JvX77.
+      docs at https://bit.ly/3LICKlE.
     required: true
   repository-path:
     description: |
