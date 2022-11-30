@@ -1,7 +1,6 @@
-name: BuildPulse
+name: BuildPulse (Legacy Version)
 description: |
-  Send test results to buildpulse.io to help you identify and eliminate flaky
-  tests
+  Deprecated: Use github.com/buildpulse/buildpulse-action instead
 author: Jason Rudolph
 branding:
   icon: "activity"
