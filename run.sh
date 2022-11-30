@@ -2,6 +2,8 @@
 
 set -e
 
+echo "::warning ::The BuildPulse action now lives at buildpulse/buildpulse-action. Please update your workflows to point to buildpulse/buildpulse-action instead of Workshop64/buildpulse-action. If you have any questions or want a hand making this change, you can reach us any time at hello@buildpulse.io."
+
 if ! echo $INPUT_ACCOUNT | egrep -q '^[0-9]+$'
 then
 	echo "🐛 The given value is not a valid account ID: ${INPUT_ACCOUNT}"
